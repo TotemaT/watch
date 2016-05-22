@@ -19,58 +19,95 @@
 
 package be.matteotaroli.watch.pojo;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import be.matteotaroli.watch.utils.Constants;
-
 public class MovieFull extends MovieShort {
-    private String rated;
-    private String length;
-    private int metascore;
-    private String genre;
-    private String plot;
+    private String Rated;
+    private String Runtime;
+    private int Metascore;
+    private String Genre;
+    private String Plot;
+    private String Released;
+    private String Actors;
+    private double imdbRating;
 
-    public MovieFull(String imdbId, String poster, String title, String actors, String year, double rating, String rated, String length, int metascore, String genre, String plot) {
-        super(imdbId, poster, title, actors, year, rating);
-        this.rated = rated;
-        this.length = length;
-        this.metascore = metascore;
-        this.genre = genre;
-        this.plot = plot;
-    }
-
-    public MovieFull(JSONObject json) {
-        super(json);
-        try {
-            rated = json.getString(Constants.RATED);
-            length = json.getString(Constants.RUNTIME);
-            metascore = json.getInt(Constants.METASCORE);
-            genre = json.getString(Constants.GENRE);
-            plot = json.getString(Constants.PLOT);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
+    public MovieFull() {
     }
 
     public String getRated() {
-        return rated;
+        return Rated;
     }
 
-    public String getLength() {
-        return length;
+    public void setRated(String rated) {
+        Rated = rated;
+    }
+
+    public String getRuntime() {
+        return Runtime;
+    }
+
+    public void setRuntime(String runtime) {
+        Runtime = runtime;
     }
 
     public int getMetascore() {
-        return metascore;
+        return Metascore;
+    }
+
+    public void setMetascore(int metascore) {
+        Metascore = metascore;
     }
 
     public String getGenre() {
-        return genre;
+        return Genre;
+    }
+
+    public void setGenre(String genre) {
+        Genre = genre;
     }
 
     public String getPlot() {
-        return plot;
+        return Plot;
+    }
+
+    public void setPlot(String plot) {
+        Plot = plot;
+    }
+
+    public String getReleased() {
+        return Released;
+    }
+
+    public void setReleased(String released) {
+        Released = released;
+    }
+
+    public String getActors() {
+        return Actors;
+    }
+
+    public void setActors(String actors) {
+        Actors = actors;
+    }
+
+    public double getImdbRating() {
+        return imdbRating;
+    }
+
+    public void setImdbRating(double imdbRating) {
+        this.imdbRating = imdbRating;
+    }
+    
+    @Override
+    public String toString() {
+        return "MovieFull{" +
+                super.toString() +
+                "Rated='" + Rated + '\'' +
+                ", Runtime='" + Runtime + '\'' +
+                ", Metascore=" + Metascore +
+                ", Genre='" + Genre + '\'' +
+                ", Plot='" + Plot + '\'' +
+                ", Released='" + Released + '\'' +
+                ", Actors='" + Actors + '\'' +
+                ", imdbRating=" + imdbRating +
+                '}';
     }
 }

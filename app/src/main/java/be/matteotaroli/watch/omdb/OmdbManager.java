@@ -19,24 +19,31 @@
 
 package be.matteotaroli.watch.omdb;
 
-import java.util.List;
-
 import be.matteotaroli.watch.pojo.MovieFull;
-import be.matteotaroli.watch.pojo.MovieShort;
+import be.matteotaroli.watch.pojo.Search;
+import retrofit2.Call;
+import retrofit2.http.GET;
+import retrofit2.http.Query;
 
-public interface ApiManager {
+public interface OmdbManager {
+    String ENDPOINT = "http://www.omdbapi.com";
+
     /**
      * This method allows to retrieve all movies on OMDd that contains the search terms
+     *
      * @param search Terms to search
-     * @param page Number of page
+     * @param page   Number of page
      * @return A list containing all the movies for the given page
      */
-    List<MovieShort> search(String search, int page);
+    @GET("/")
+    Call<Search> search(@Query("s") String search, @Query("page") int page);
 
     /**
      * This method allows to retrieve a single movie on OMDd with that TITLE
+     *
      * @param title Title of the movie
      * @return The movie with that TITLE
      */
-    MovieFull searchByTitle(String title);
+    @GET("/")
+    Call<MovieFull> searchByTitle(@Query("t") String title);
 }

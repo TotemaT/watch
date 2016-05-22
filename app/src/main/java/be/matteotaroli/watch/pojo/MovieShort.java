@@ -19,83 +19,64 @@
 
 package be.matteotaroli.watch.pojo;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import be.matteotaroli.watch.utils.Constants;
-
 public class MovieShort {
-    private String imdbId;
-    private String poster;
-    private String title;
-    private String actors;
-    private String releaseDate;
-    private double rating;
-    private boolean bookmarked;
+    private String imdbID;
+    private String Poster;
+    private String Title;
+    private String Year;
+    private boolean Bookmarked;
 
-    public MovieShort(String imdbId, String poster, String title, String actors, String releaseDate, double rating) {
-        this.imdbId = imdbId;
-        this.poster = poster;
-        this.title = title;
-        this.actors = actors;
-        this.releaseDate = releaseDate;
-        this.rating = rating;
-        this.bookmarked = false;
+    public String getImdbID() {
+        return imdbID;
     }
 
-    public MovieShort(JSONObject json) {
-        try {
-            title = json.getString(Constants.TITLE);
-            imdbId = json.getString(Constants.IMDB_ID);
-            poster = json.getString(Constants.POSTER);
-            actors = json.getString(Constants.ACTORS);
-            releaseDate = json.getString(Constants.RELEASED);
-            rating = json.getDouble(Constants.IMDB_RATING);
-            bookmarked = false;
-        } catch (JSONException e) {
-
-            e.printStackTrace();
-        }
-    }
-
-    public String getImdbId() {
-        return imdbId;
+    public void setImdbID(String imdbID) {
+        this.imdbID = imdbID;
     }
 
     public String getPoster() {
-        return poster;
+        return Poster;
+    }
+
+    public void setPoster(String poster) {
+        Poster = poster;
     }
 
     public String getTitle() {
-        return title;
+        return Title;
     }
 
-    public String getActors() {
-        return actors;
+    public void setTitle(String title) {
+        Title = title;
     }
 
-    public String getReleaseDate() {
-        return releaseDate;
+    public String getYear() {
+        return Year;
     }
 
-    public double getRating() {
-        return rating;
+    public void setYear(String year) {
+        Year = year;
     }
 
     public boolean isBookmarked() {
-        return bookmarked;
+        return Bookmarked;
+    }
+
+    public void setBookmarked(boolean bookmarked) {
+        Bookmarked = bookmarked;
     }
 
     @Override
     public String toString() {
         return "MovieShort{" +
-                "imdbId='" + imdbId + '\'' +
-                ", poster='" + poster + '\'' +
-                ", title='" + title + '\'' +
-                ", actors='" + actors + '\'' +
-                ", releaseDate='" + releaseDate + '\'' +
-                ", rating=" + rating +
-                ", bookmarked=" + bookmarked +
+                "imdbID='" + imdbID + '\'' +
+                ", Poster='" + Poster + '\'' +
+                ", Title='" + Title + '\'' +
+                ", Year='" + Year + '\'' +
+                ", Bookmarked=" + Bookmarked +
                 '}';
     }
+
+    public MovieShort() {}
+
 }

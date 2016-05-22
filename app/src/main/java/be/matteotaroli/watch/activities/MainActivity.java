@@ -20,15 +20,50 @@
 package be.matteotaroli.watch.activities;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import be.matteotaroli.watch.R;
+import be.matteotaroli.watch.pojo.MovieFull;
+import be.matteotaroli.watch.pojo.MovieShort;
+import be.matteotaroli.watch.pojo.Search;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        /* select last viewed and add to list */
+
+        Call<Search> call = getOmdbManager().search("pawn", 1);
+        call.enqueue(new Callback<Search>() {
+            @Override
+            public void onResponse(Call<Search> call, Response<Search> response) {
+                for (MovieShort movie : response.body().getSearch()) {
+                    Log.d("OnResponse", movie.toString());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Search> call, Throwable t) {
+                Log.e("OnFailure", t.toString());
+            }
+        });
+
+        Call<MovieFull> call2 = getOmdbManager().searchByTitle("the illusionist");
+        call2.enqueue(new Callback<MovieFull>() {
+            @Override
+            public void onResponse(Call<MovieFull> call, Response<MovieFull> response) {
+                Log.d("OnResponse", response.body().toString());
+            }
+
+            @Override
+            public void onFailure(Call<MovieFull> call, Throwable t) {
+                Log.e("OnFailure", t.toString());
+            }
+        });
     }
 }
