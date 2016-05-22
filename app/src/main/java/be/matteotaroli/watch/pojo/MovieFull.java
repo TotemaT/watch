@@ -19,6 +19,11 @@
 
 package be.matteotaroli.watch.pojo;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import be.matteotaroli.watch.utils.Constants;
+
 public class MovieFull extends MovieShort {
     private String rated;
     private String length;
@@ -26,13 +31,27 @@ public class MovieFull extends MovieShort {
     private String genre;
     private String plot;
 
-    public MovieFull(long imdbId, String poster, String title, String actors, String year, float rating, boolean bookmarked, String rated, String length, int metascore, String genre, String plot) {
-        super(imdbId, poster, title, actors, year, rating, bookmarked);
+    public MovieFull(String imdbId, String poster, String title, String actors, String year, double rating, String rated, String length, int metascore, String genre, String plot) {
+        super(imdbId, poster, title, actors, year, rating);
         this.rated = rated;
         this.length = length;
         this.metascore = metascore;
         this.genre = genre;
         this.plot = plot;
+    }
+
+    public MovieFull(JSONObject json) {
+        super(json);
+        try {
+            rated = json.getString(Constants.RATED);
+            length = json.getString(Constants.RUNTIME);
+            metascore = json.getInt(Constants.METASCORE);
+            genre = json.getString(Constants.GENRE);
+            plot = json.getString(Constants.PLOT);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public String getRated() {

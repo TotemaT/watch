@@ -19,8 +19,8 @@
 
 package be.matteotaroli.watch.activities;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import be.matteotaroli.watch.R;
 

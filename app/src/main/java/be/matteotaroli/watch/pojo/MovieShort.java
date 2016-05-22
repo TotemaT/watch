@@ -19,26 +19,46 @@
 
 package be.matteotaroli.watch.pojo;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import be.matteotaroli.watch.utils.Constants;
+
 public class MovieShort {
-    private long imdbId;
+    private String imdbId;
     private String poster;
     private String title;
     private String actors;
-    private String year;
-    private float rating;
+    private String releaseDate;
+    private double rating;
     private boolean bookmarked;
 
-    public MovieShort(long imdbId, String poster, String title, String actors, String year, float rating, boolean bookmarked) {
+    public MovieShort(String imdbId, String poster, String title, String actors, String releaseDate, double rating) {
         this.imdbId = imdbId;
         this.poster = poster;
         this.title = title;
         this.actors = actors;
-        this.year = year;
+        this.releaseDate = releaseDate;
         this.rating = rating;
-        this.bookmarked = bookmarked;
+        this.bookmarked = false;
     }
 
-    public long getImdbId() {
+    public MovieShort(JSONObject json) {
+        try {
+            title = json.getString(Constants.TITLE);
+            imdbId = json.getString(Constants.IMDB_ID);
+            poster = json.getString(Constants.POSTER);
+            actors = json.getString(Constants.ACTORS);
+            releaseDate = json.getString(Constants.RELEASED);
+            rating = json.getDouble(Constants.IMDB_RATING);
+            bookmarked = false;
+        } catch (JSONException e) {
+
+            e.printStackTrace();
+        }
+    }
+
+    public String getImdbId() {
         return imdbId;
     }
 
@@ -54,11 +74,11 @@ public class MovieShort {
         return actors;
     }
 
-    public String getYear() {
-        return year;
+    public String getReleaseDate() {
+        return releaseDate;
     }
 
-    public float getRating() {
+    public double getRating() {
         return rating;
     }
 
@@ -66,4 +86,16 @@ public class MovieShort {
         return bookmarked;
     }
 
+    @Override
+    public String toString() {
+        return "MovieShort{" +
+                "imdbId='" + imdbId + '\'' +
+                ", poster='" + poster + '\'' +
+                ", title='" + title + '\'' +
+                ", actors='" + actors + '\'' +
+                ", releaseDate='" + releaseDate + '\'' +
+                ", rating=" + rating +
+                ", bookmarked=" + bookmarked +
+                '}';
+    }
 }

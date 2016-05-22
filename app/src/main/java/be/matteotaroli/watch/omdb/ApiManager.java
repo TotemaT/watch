@@ -34,9 +34,9 @@ public interface ApiManager {
     List<MovieShort> search(String search, int page);
 
     /**
-     * This method allows to retrieve a single movie on OMDd with that title
+     * This method allows to retrieve a single movie on OMDd with that TITLE
      * @param title Title of the movie
-     * @return The movie with that title
+     * @return The movie with that TITLE
      */
     MovieFull searchByTitle(String title);
 }
