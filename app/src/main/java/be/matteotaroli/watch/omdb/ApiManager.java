@@ -24,7 +24,19 @@ import java.util.List;
 import be.matteotaroli.watch.pojo.MovieFull;
 import be.matteotaroli.watch.pojo.MovieShort;
 
-public interface OmdbManager {
+public interface ApiManager {
+    /**
+     * This method allows to retrieve all movies on OMDd that contains the search terms
+     * @param search Terms to search
+     * @param page Number of page
+     * @return A list containing all the movies for the given page
+     */
     List<MovieShort> search(String search, int page);
+
+    /**
+     * This method allows to retrieve a single movie on OMDd with that title
+     * @param title Title of the movie
+     * @return The movie with that title
+     */
     MovieFull searchByTitle(String title);
 }
