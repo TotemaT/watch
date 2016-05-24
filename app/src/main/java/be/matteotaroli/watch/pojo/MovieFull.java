@@ -22,12 +22,12 @@ package be.matteotaroli.watch.pojo;
 public class MovieFull extends MovieShort {
     private String Rated;
     private String Runtime;
-    private int Metascore;
+    private String Metascore;
     private String Genre;
     private String Plot;
     private String Released;
     private String Actors;
-    private double imdbRating;
+    private String imdbRating;
 
     public MovieFull() {
     }
@@ -48,11 +48,11 @@ public class MovieFull extends MovieShort {
         Runtime = runtime;
     }
 
-    public int getMetascore() {
+    public String getMetascore() {
         return Metascore;
     }
 
-    public void setMetascore(int metascore) {
+    public void setMetascore(String metascore) {
         Metascore = metascore;
     }
 
@@ -88,11 +88,11 @@ public class MovieFull extends MovieShort {
         Actors = actors;
     }
 
-    public double getImdbRating() {
+    public String getImdbRating() {
         return imdbRating;
     }
 
-    public void setImdbRating(double imdbRating) {
+    public void setImdbRating(String imdbRating) {
         this.imdbRating = imdbRating;
     }
     

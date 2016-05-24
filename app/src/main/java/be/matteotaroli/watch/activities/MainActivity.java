@@ -20,44 +20,79 @@
 package be.matteotaroli.watch.activities;
 
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import be.matteotaroli.watch.R;
+import be.matteotaroli.watch.adapters.MovieListAdapter;
 import be.matteotaroli.watch.pojo.MovieFull;
 import be.matteotaroli.watch.pojo.MovieShort;
 import be.matteotaroli.watch.pojo.Search;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends BaseActivity {
 
+    @BindView(R.id.movies_recycler_view)
+    RecyclerView movieRecyclerView;
+    RecyclerView.Adapter adapter;
+    RecyclerView.LayoutManager layoutManager;
+    private List<MovieFull> movies;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        /* select last viewed and add to list */
+        ButterKnife.bind(this);
 
-        Call<Search> call = getOmdbManager().search("pawn", 1);
-        call.enqueue(new Callback<Search>() {
-            @Override
-            public void onResponse(Call<Search> call, Response<Search> response) {
-                for (MovieShort movie : response.body().getSearch()) {
-                    Log.d("OnResponse", movie.toString());
+        movieRecyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(this);
+        movieRecyclerView.setLayoutManager(layoutManager);
+
+        movies = new ArrayList<>();
+        adapter = new MovieListAdapter(this, movies);
+        movieRecyclerView.setAdapter(adapter);
+
+        addMovies("pawn");
+
+        /* Load last viewed */
+    }
+
+    public void addMovies(String search) {
+        for (int i = 0; i < 10; i++) {
+            Call<Search> call = getOmdbManager().search(search, i);
+            call.enqueue(new Callback<Search>() {
+                @Override
+                public void onResponse(Call<Search> call, Response<Search> response) {
+                    if (response.body() != null && response.body().getSearch() != null) {
+                        for (MovieShort movie : response.body().getSearch()) {
+                            addMovieFull(movie.getImdbID());
+                        }
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<Search> call, Throwable t) {
-                Log.e("OnFailure", t.toString());
-            }
-        });
+                @Override
+                public void onFailure(Call<Search> call, Throwable t) {
+                    Log.e("OnFailure", t.toString());
+                }
+            });
+        }
+    }
 
-        Call<MovieFull> call2 = getOmdbManager().searchByTitle("the illusionist");
+    public void addMovieFull(String id) {
+        Call<MovieFull> call2 = getOmdbManager().searchById(id);
         call2.enqueue(new Callback<MovieFull>() {
             @Override
             public void onResponse(Call<MovieFull> call, Response<MovieFull> response) {
-                Log.d("OnResponse", response.body().toString());
+                movies.add(response.body());
+                adapter.notifyDataSetChanged();
             }
 
             @Override
