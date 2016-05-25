@@ -19,11 +19,14 @@
 
 package be.matteotaroli.watch.activities;
 
+import android.app.ActivityOptions;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -31,6 +34,7 @@ import java.util.List;
 
 import be.matteotaroli.watch.R;
 import be.matteotaroli.watch.adapters.MovieListAdapter;
+import be.matteotaroli.watch.listeners.RecyclerItemClickListener;
 import be.matteotaroli.watch.pojo.MovieFull;
 import be.matteotaroli.watch.pojo.MovieShort;
 import be.matteotaroli.watch.pojo.Search;
@@ -41,7 +45,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements RecyclerItemClickListener {
 
     @BindView(R.id.search_searchView)
     SearchView searchView;
@@ -64,7 +68,7 @@ public class MainActivity extends BaseActivity {
         movieRecyclerView.setLayoutManager(layoutManager);
 
         movies = new ArrayList<>();
-        adapter = new MovieListAdapter(this, movies);
+        adapter = new MovieListAdapter(movies, this);
         movieRecyclerView.setAdapter(adapter);
         listHeaderTextView.setText("Recently Viewed");
 
@@ -76,10 +80,9 @@ public class MainActivity extends BaseActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                Log.d("Searchview", "Searching : " + query);
                 listHeaderTextView.setText("Results");
                 searchView.clearFocus();
-                addMovies(query);
+                addMovies(query.trim());
                 return true;
             }
 
@@ -131,5 +134,14 @@ public class MainActivity extends BaseActivity {
                 Log.e("OnFailure", t.toString());
             }
         });
+    }
+
+    @Override
+    public void onClick(View v, int position) {
+        View iV = v.findViewById(R.id.poster_imageView);
+        ActivityOptions opt = ActivityOptions.makeSceneTransitionAnimation(this, iV, getString(R.string.activity_image_trans));
+        Intent i = new Intent(MainActivity.this, DetailsActivity.class);
+        i.putExtra("EXTRA_MOVIE", movies.get(position));
+        startActivity(i, opt.toBundle());
     }
 }

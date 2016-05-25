@@ -9,4 +9,5 @@
     <color name="icons">#212121</color>
     <color name="divider">#B6B6B6</color>
     <color name="star_color">#FFEB3B</color>
+    <color name="background_color">#F5F5F5</color>
 </resources>

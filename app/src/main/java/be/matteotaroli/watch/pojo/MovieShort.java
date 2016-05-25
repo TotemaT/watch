@@ -19,7 +19,10 @@
 
 package be.matteotaroli.watch.pojo;
 
-public class MovieShort {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class MovieShort implements Parcelable {
     private String imdbID;
     private String Poster;
     private String Title;
@@ -36,6 +39,10 @@ public class MovieShort {
 
     public String getPoster() {
         return Poster;
+    }
+
+    public String getBigPoster() {
+        return Poster.replace("._V1_SX300", "");
     }
 
     public void setPoster(String poster) {
@@ -77,6 +84,42 @@ public class MovieShort {
                 '}';
     }
 
-    public MovieShort() {}
+    public MovieShort() {
+    }
 
+
+    protected MovieShort(Parcel in) {
+        imdbID = in.readString();
+        Poster = in.readString();
+        Title = in.readString();
+        Year = in.readString();
+        Bookmarked = in.readByte() != 0x00;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(imdbID);
+        dest.writeString(Poster);
+        dest.writeString(Title);
+        dest.writeString(Year);
+        dest.writeByte((byte) (Bookmarked ? 0x01 : 0x00));
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<MovieShort> CREATOR = new Parcelable.Creator<MovieShort>() {
+        @Override
+        public MovieShort createFromParcel(Parcel in) {
+            return new MovieShort(in);
+        }
+
+        @Override
+        public MovieShort[] newArray(int size) {
+            return new MovieShort[size];
+        }
+    };
 }
