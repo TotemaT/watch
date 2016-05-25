@@ -22,7 +22,9 @@ package be.matteotaroli.watch.activities;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,12 +36,17 @@ import be.matteotaroli.watch.pojo.MovieShort;
 import be.matteotaroli.watch.pojo.Search;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends BaseActivity {
 
+    @BindView(R.id.search_searchView)
+    SearchView searchView;
+    @BindView(R.id.list_header_textView)
+    TextView listHeaderTextView;
     @BindView(R.id.movies_recycler_view)
     RecyclerView movieRecyclerView;
     RecyclerView.Adapter adapter;
@@ -59,10 +66,34 @@ public class MainActivity extends BaseActivity {
         movies = new ArrayList<>();
         adapter = new MovieListAdapter(this, movies);
         movieRecyclerView.setAdapter(adapter);
+        listHeaderTextView.setText("Recently Viewed");
 
-        addMovies("pawn");
-
+        setSearchAction();
         /* Load last viewed */
+    }
+
+    private void setSearchAction() {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Log.d("Searchview", "Searching : " + query);
+                listHeaderTextView.setText("Results");
+                searchView.clearFocus();
+                addMovies(query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+    }
+
+    @OnClick(R.id.search_cardView)
+    public void onClickCardView() {
+        searchView.setIconified(false);
+        searchView.requestFocus();
     }
 
     public void addMovies(String search) {
