@@ -19,7 +19,6 @@
 
 package be.matteotaroli.watch.activities;
 
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -27,7 +26,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,8 +47,8 @@ public class MainActivity extends BaseActivity implements RecyclerItemClickListe
 
     @BindView(R.id.search_searchView)
     SearchView searchView;
-    @BindView(R.id.list_header_textView)
-    TextView listHeaderTextView;
+   // @BindView(R.id.list_header_textView)
+    //TextView listHeaderTextView;
     @BindView(R.id.movies_recycler_view)
     RecyclerView movieRecyclerView;
     RecyclerView.Adapter adapter;
@@ -70,7 +68,7 @@ public class MainActivity extends BaseActivity implements RecyclerItemClickListe
         movies = new ArrayList<>();
         adapter = new MovieListAdapter(movies, this);
         movieRecyclerView.setAdapter(adapter);
-        listHeaderTextView.setText("Recently Viewed");
+       // listHeaderTextView.setText("Recently Viewed");
 
         setSearchAction();
         /* Load last viewed */
@@ -80,7 +78,7 @@ public class MainActivity extends BaseActivity implements RecyclerItemClickListe
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                listHeaderTextView.setText("Results");
+                //listHeaderTextView.setText("Results");
                 searchView.clearFocus();
                 addMovies(query.trim());
                 return true;
@@ -139,9 +137,8 @@ public class MainActivity extends BaseActivity implements RecyclerItemClickListe
     @Override
     public void onClick(View v, int position) {
         View iV = v.findViewById(R.id.poster_imageView);
-        ActivityOptions opt = ActivityOptions.makeSceneTransitionAnimation(this, iV, getString(R.string.activity_image_trans));
         Intent i = new Intent(MainActivity.this, DetailsActivity.class);
         i.putExtra("EXTRA_MOVIE", movies.get(position));
-        startActivity(i, opt.toBundle());
+        startActivity(i);
     }
 }
