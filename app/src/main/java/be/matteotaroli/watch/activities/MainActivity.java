@@ -1,5 +1,6 @@
 package be.matteotaroli.watch.activities;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -120,6 +122,7 @@ public class MainActivity extends BaseActivity implements RecyclerItemClickListe
         View iV = v.findViewById(R.id.poster_imageView);
         Intent i = new Intent(MainActivity.this, DetailsActivity.class);
         i.putExtra("EXTRA_MOVIE", movies.get(position));
-        startActivity(i);
+        ActivityOptions opt = ActivityOptions.makeSceneTransitionAnimation(this, iV, iV.getTransitionName());
+        startActivity(i, opt.toBundle());
     }
 }
