@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
+import android.util.Pair;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -31,8 +32,6 @@ public class MainActivity extends BaseActivity implements RecyclerItemClickListe
 
     @BindView(R.id.search_searchView)
     SearchView searchView;
-   // @BindView(R.id.list_header_textView)
-    //TextView listHeaderTextView;
     @BindView(R.id.movies_recycler_view)
     RecyclerView movieRecyclerView;
     RecyclerView.Adapter adapter;
@@ -52,10 +51,8 @@ public class MainActivity extends BaseActivity implements RecyclerItemClickListe
         movies = new ArrayList<>();
         adapter = new MovieListAdapter(movies, this);
         movieRecyclerView.setAdapter(adapter);
-       // listHeaderTextView.setText("Recently Viewed");
 
         setSearchAction();
-        /* Load last viewed */
     }
 
     private void setSearchAction() {
@@ -120,10 +117,14 @@ public class MainActivity extends BaseActivity implements RecyclerItemClickListe
 
     @Override
     public void onClick(View v, int position) {
-        View iV = v.findViewById(R.id.poster_imageView);
+        View poster = v.findViewById(R.id.poster_imageView);
+        View title = v.findViewById(R.id.title_textView);
+
         Intent i = new Intent(MainActivity.this, DetailsActivity.class);
         i.putExtra("EXTRA_MOVIE", movies.get(position));
-        ActivityOptions opt = ActivityOptions.makeSceneTransitionAnimation(this, iV, iV.getTransitionName());
+        ActivityOptions opt = ActivityOptions.makeSceneTransitionAnimation(this,
+                Pair.create(poster, poster.getTransitionName()),
+                Pair.create(title, title.getTransitionName()));
         startActivity(i, opt.toBundle());
     }
 }

@@ -12,7 +12,7 @@
         android:id="@+id/poster_imageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:transitionName="shared_image"/>
+        android:transitionName="@string/poster_transition"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,7 +26,8 @@
             android:id="@+id/title_textView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:transitionName="@string/title_transition"/>
 
         <TextView
             android:id="@+id/year_textView"

@@ -4,8 +4,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import be.matteotaroli.watch.R;
@@ -17,6 +19,8 @@ public class DetailsActivity extends BaseActivity {
 
     @BindView(R.id.poster_toolbar_imageView)
     ImageView posterImageView;
+    @BindView(R.id.title_toolbar_textView)
+    TextView titleTv;
 
 
     @Override
@@ -34,8 +38,11 @@ public class DetailsActivity extends BaseActivity {
         setContentView(R.layout.activity_detail);
 
         ButterKnife.bind(this);
+
+        titleTv.setText(movie.getTitle());
         Picasso.with(this)
-                .load(movie.getPoster()).fit().centerCrop().placeholder(R.drawable.ic_movie)
+                .load(movie.getBigPoster()).networkPolicy(NetworkPolicy.OFFLINE)
+                .fit().centerCrop().placeholder(R.drawable.ic_movie)
                 .into(posterImageView, new Callback() {
                     @Override
                     public void onSuccess() {
