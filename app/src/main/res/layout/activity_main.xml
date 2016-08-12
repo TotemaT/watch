@@ -43,18 +43,13 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <!--    <TextView
-            android:id="@+id/list_header_textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:textSize="20sp"/>
-    -->
     <android.support.v7.widget.RecyclerView
         android:id="@+id/movies_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
         android:scrollbars="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:listitem="@layout/movie_list_item"/>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 </LinearLayout>

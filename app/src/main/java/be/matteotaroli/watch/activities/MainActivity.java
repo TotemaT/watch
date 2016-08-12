@@ -3,6 +3,7 @@ package be.matteotaroli.watch.activities;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -45,7 +46,7 @@ public class MainActivity extends BaseActivity implements RecyclerItemClickListe
         ButterKnife.bind(this);
 
         movieRecyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(this);
+        layoutManager = new GridLayoutManager(this, 2);
         movieRecyclerView.setLayoutManager(layoutManager);
 
         movies = new ArrayList<>();

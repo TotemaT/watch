@@ -45,13 +45,6 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
         Picasso.with(ctx).load(movie.getBigPoster()).placeholder(R.drawable.ic_movie).fit().centerCrop().into(holder.posterImageView);
         holder.titleTextView.setText(movie.getTitle());
         holder.year_textView.setText(movie.getYear());
-        if (!movie.getImdbRating().equals("N/A")) {
-            holder.ratingBar.setRating(NumberUtil.roundToNearestHalf(Float.parseFloat(movie.getImdbRating()) / 2));
-        }
-        holder.actorsTextView.setText(movie.getActors());
-
-        if (position == getItemCount()) holder.divider.setVisibility(View.INVISIBLE);
-        else holder.divider.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -59,21 +52,14 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
         return movies.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @BindView(R.id.poster_imageView)
-        // CircleImageView posterImageView;
         ImageView posterImageView;
         @BindView(R.id.title_textView)
         TextView titleTextView;
-        @BindView(R.id.actors_textView)
-        TextView actorsTextView;
-        @BindView(R.id.ratingBar)
-        RatingBar ratingBar;
         @BindView(R.id.year_textView)
         TextView year_textView;
-        @BindView(R.id.divider)
-        View divider;
 
         RecyclerItemClickListener onClickListener;
 
