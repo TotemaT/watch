@@ -119,12 +119,14 @@ public class MainActivity extends BaseActivity implements RecyclerItemClickListe
     public void onClick(View v, int position) {
         View poster = v.findViewById(R.id.poster_imageView);
         View title = v.findViewById(R.id.title_textView);
+        View titleHolder = v.findViewById(R.id.linearlayout);
 
         Intent i = new Intent(MainActivity.this, DetailsActivity.class);
         i.putExtra("EXTRA_MOVIE", movies.get(position));
         ActivityOptions opt = ActivityOptions.makeSceneTransitionAnimation(this,
                 Pair.create(poster, poster.getTransitionName()),
-                Pair.create(title, title.getTransitionName()));
+                Pair.create(title, title.getTransitionName()),
+                Pair.create(titleHolder, titleHolder.getTransitionName()));
         startActivity(i, opt.toBundle());
     }
 }

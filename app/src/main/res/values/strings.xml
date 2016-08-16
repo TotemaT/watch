@@ -4,4 +4,5 @@
 
     <string name="poster_transition">poster_shared_asset</string>
     <string name="title_transition">title_shared_asset</string>
+    <string name="title_holder_transition">title_holder_shared_asset</string>
 </resources>

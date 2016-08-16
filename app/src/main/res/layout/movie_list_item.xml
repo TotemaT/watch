@@ -15,12 +15,14 @@
         android:transitionName="@string/poster_transition"/>
 
     <LinearLayout
+        android:id="@+id/linearlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:background="@android:color/white"
         android:orientation="horizontal"
-        android:padding="16dp">
+        android:padding="16dp"
+        android:transitionName="@string/title_holder_transition">
 
         <TextView
             android:id="@+id/title_textView"

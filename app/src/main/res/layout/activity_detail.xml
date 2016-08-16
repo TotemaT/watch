@@ -41,7 +41,8 @@
                 android:layout_gravity="bottom"
                 android:background="@android:color/white"
                 app:layout_collapseMode="none"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                android:transitionName="@string/title_holder_transition">
 
                 <TextView
                     android:id="@+id/title_toolbar_textView"
@@ -73,9 +74,9 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <TextView
-            android:padding="32dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="32dp"
             android:text="HERE GOES STUFF"/>
 
     </android.support.v4.widget.NestedScrollView>
