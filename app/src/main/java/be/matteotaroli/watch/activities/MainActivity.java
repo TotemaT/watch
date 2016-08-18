@@ -4,13 +4,11 @@ import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.util.Pair;
 import android.view.View;
-import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,8 +57,8 @@ public class MainActivity extends BaseActivity implements RecyclerItemClickListe
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                //listHeaderTextView.setText("Results");
                 searchView.clearFocus();
+                clearMovies();
                 addMovies(query.trim());
                 return true;
             }
@@ -78,6 +76,11 @@ public class MainActivity extends BaseActivity implements RecyclerItemClickListe
         searchView.requestFocus();
     }
 
+    public void clearMovies() {
+        movies.clear();
+        adapter.notifyDataSetChanged();
+    }
+
     public void addMovies(String search) {
         for (int i = 0; i < 10; i++) {
             Call<Search> call = getOmdbManager().search(search, i);
@@ -86,7 +89,7 @@ public class MainActivity extends BaseActivity implements RecyclerItemClickListe
                 public void onResponse(Call<Search> call, Response<Search> response) {
                     if (response.body() != null && response.body().getSearch() != null) {
                         for (MovieShort movie : response.body().getSearch()) {
-                            addMovieFull(movie.getImdbID());
+                            addMovie(movie.getImdbID());
                         }
                     }
                 }
@@ -99,7 +102,7 @@ public class MainActivity extends BaseActivity implements RecyclerItemClickListe
         }
     }
 
-    public void addMovieFull(String id) {
+    public void addMovie(String id) {
         Call<MovieFull> call2 = getOmdbManager().searchById(id);
         call2.enqueue(new Callback<MovieFull>() {
             @Override
